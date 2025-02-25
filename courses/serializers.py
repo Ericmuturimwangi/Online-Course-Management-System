@@ -1,7 +1,7 @@
 from .models import Course, Module, Enrollment
 from rest_framework import serializers
 
-class CourseSrializer(serializers.ModelSerializer):
+class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
         fields =['id', 'title', 'description', 'instructor']
@@ -16,4 +16,3 @@ class EnrollmentSerializer(serializers.ModelSerializer):
         model = Enrollment
         fields =['id', 'course', 'student']
 
-        
