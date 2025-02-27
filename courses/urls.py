@@ -14,6 +14,6 @@ router.register(r'enrollments', views.EnrollmentViewSet)
 
 urlpatterns = [
     path('', include (router.urls)),
-    # path('courses/', course_list, name='course_list'),
+    
 
 ]
