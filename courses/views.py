@@ -11,7 +11,7 @@ class CoursePagination(PageNumberPagination):
     page_size = 10
 
 class CourseViewset(viewsets.ModelViewSet):
-    queryset = Course.objects.all()
+    queryset = Course.objects.all().order_by()
     serializer_class = CourseSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     pagination_class = CoursePagination
