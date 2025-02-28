@@ -1,5 +1,6 @@
-
+import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -14,7 +15,14 @@ SECRET_KEY = "django-insecure-$optv=5w)!&4j-%d31501@rx0ih@%z&iy-!megv325m-=5m6&z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', 'localhost','127.0.0.1']
+ALLOWED_HOSTS = ['0.0.0.8000', 'localhost','127.0.0.1']
+
+MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY')
+MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET')
+MPESA_SHORTCODE = config('MPESA_SHORTCODE')
+MPESA_PASSKEY = config('MPESA_PASSKEY')
+MPESA_CALLBACK_URL = config('MPESA_CALLBACK_URL')
+
 
 
 # Application definition
