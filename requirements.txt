@@ -12,3 +12,6 @@ pytest==8.3.4
 pytest-django==4.10.0
 sqlparse==0.5.3
 tzdata==2025.1
+django-debug-toolbar
+python-decouple
+requests
