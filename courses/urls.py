@@ -14,6 +14,10 @@ router.register(r'enrollments', views.EnrollmentViewSet)
 
 urlpatterns = [
     path('', include (router.urls)),
+    path('stk_push/', views.stk_push, name='stk_push'),
+    path('mpesa_callback/', views.mpesa_callback, name='mpesa_callback'),
+
+
     
 
 ]
