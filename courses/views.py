@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Course, Module, Enrollment
+from .models import Course, Module, Enrollment, Payment
 from .serializers import CourseSerializer, ModuleSerializer, EnrollmentSerializer
 from rest_framework import viewsets
 from rest_framework import permissions
@@ -15,6 +15,8 @@ import datetime
 from .mpesa import get_mpesa_access_token
 import json
 import traceback
+from rest_framework.response import Response
+from rest_framework import status
 
 # mpesa api
 @csrf_exempt
@@ -135,8 +137,33 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
         enrollment = Enrollment.objects.create(course=course, user=user)
         return Response(EnrollmentSerializer(enrollment).data, status=status.HTTP_201_CREATED)
 
+        payment = Payment.objects.filter(user=user, course=course, payment_status='completed').first()
 
+        if not payment:
+            return Response({"detail":"Payment for the course is required"}, status= status.HTTP_400_BAD_REQUEST)
+        
+        enrollment = Enrollment.objects.create(course=course, user=user)
+        return Response (EnrollmentSerializer(enrollment).data, status=status.HTTP_201_CREATED)
+    
 
+# iniating a payment callback
+@csrf_exempt
+def stk_callback(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            if data["Body"]["stkCallback"]["ResultCode"] == 0:  # Success
+                payment = Payment.objects.create(
+                    phone_number=data["Body"]["stkCallback"]["CallbackMetadata"]["Item"][4]["Value"],
+                    amount=data["Body"]["stkCallback"]["CallbackMetadata"]["Item"][0]["Value"],
+                    transaction_id=data["Body"]["stkCallback"]["CallbackMetadata"]["Item"][1]["Value"]
+                )
+                payment.save()
+                return JsonResponse({"message": "Payment saved"}, status=201)
+            else:
+                return JsonResponse({"error": "Payment failed"}, status=400)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=400)
 
 
 

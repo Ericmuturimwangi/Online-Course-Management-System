@@ -15,7 +15,7 @@ SECRET_KEY = "django-insecure-$optv=5w)!&4j-%d31501@rx0ih@%z&iy-!megv325m-=5m6&z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.8000', '127.0.0.1', '003f-105-231-172-144.ngrok-free.app']
+ALLOWED_HOSTS = ['0.0.0.8000', '127.0.0.1', '872e-154-159-252-77.ngrok-free.app']
 
 MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY')
 MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET')
@@ -140,3 +140,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 10
 
 }
+
+CSRF_TRUSTED_ORIGINS = [
+    'https://872e-154-159-252-77.ngrok-free.app',
+]
