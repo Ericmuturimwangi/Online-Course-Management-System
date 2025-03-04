@@ -15,7 +15,7 @@ SECRET_KEY = "django-insecure-$optv=5w)!&4j-%d31501@rx0ih@%z&iy-!megv325m-=5m6&z
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.8000', '127.0.0.1', '872e-154-159-252-77.ngrok-free.app']
+ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', '2ad9-105-230-234-197.ngrok-free.app']
 
 MPESA_CONSUMER_KEY = config('MPESA_CONSUMER_KEY')
 MPESA_CONSUMER_SECRET = config('MPESA_CONSUMER_SECRET')
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'courses',
     'rest_framework',
     'debug_toolbar',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +51,11 @@ MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "courses.middleware.RequestLoggerMiddleware",
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "https://2ad9-105-230-234-197.ngrok-free.app",
 ]
 
 INTERNAL_IPS = [
@@ -142,5 +148,5 @@ REST_FRAMEWORK = {
 }
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://872e-154-159-252-77.ngrok-free.app',
+    'https://*.ngrok-free.app',
 ]

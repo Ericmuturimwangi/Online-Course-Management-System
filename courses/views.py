@@ -17,6 +17,7 @@ import json
 import traceback
 from rest_framework.response import Response
 from rest_framework import status
+import logging
 
 # mpesa api
 @csrf_exempt
@@ -145,6 +146,8 @@ class EnrollmentViewSet(viewsets.ModelViewSet):
         enrollment = Enrollment.objects.create(course=course, user=user)
         return Response (EnrollmentSerializer(enrollment).data, status=status.HTTP_201_CREATED)
     
+
+logger = logging.getLogger(__name__)    
 
 # iniating a payment callback
 @csrf_exempt
